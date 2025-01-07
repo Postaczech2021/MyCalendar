@@ -31,6 +31,8 @@
                 {% if day != 0 %}
                 <a href="{{ url_for('day_view', day=day, month=month, year=year) }}">{{ day }}</a>
                 {% endif %}
+                {% if day in events_by_day %} <div class="event-count"> <span class="badge bg-success">{{ events_by_day[day] }}</span> </div> {% endif %}
+
             </td>
             
 
@@ -40,15 +42,31 @@
     </tbody>
 </table>
 
-<h3>Posledních 5 událostí</h3>
+<h3>Poslední události</h3>
+    <hr>
 {% if recent_events %}
-    <ul>
+
     {% for event in recent_events %}
-            <a href="{{ url_for('edit_event', event_id=event.id) }}">{{ event.name }}</a> - 
-            <span>{{ event.start_date.strftime('%d.%m.%Y') }} - {{ event.end_date.strftime('%d.%m.%Y') }}</span>
-<p>{{ event.description }}</p>
+            <h5><a href="{{ url_for('edit_event', event_id=event.id) }}">{{ event.name }}</a></h5>
+
+            {% if event.start_date == event.end_date %}
+                <h6>
+                <i class="bi bi-calendar-check"></i>
+    <span>{{ event.start_date.strftime('%d.%m.%Y') }}</span>
+{% else %}
+    <span>{{ event.start_date.strftime('%d.%m.%Y') }} - {{ event.end_date.strftime('%d.%m.%Y') }}</span>
+                </h6>
+{% endif %}
+
+<p class="mt-1 mb-3">{{ event.description }}</p>
+        <p>{% if event.done %}
+    <p><i class="bi bi-check-circle-fill text-success"></i></p>
+{% else %}
+    <p><i class="bi bi-x-circle-fill text-danger"></i></p>
+{% endif %}
+</p>
     {% endfor %}
-    </ul>
+
 {% else %}
     <p>Žádné události.</p>
 {% endif %}

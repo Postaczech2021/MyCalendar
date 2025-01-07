@@ -10,7 +10,7 @@ table .current_day {
     background-color: #f5d522 !important;
 }
 
-}
+
 /* Nastavení stylu pro kontejner */
 .container {
     padding: 20px; /* Vnitřní odsazení kontejneru */
@@ -27,7 +27,7 @@ h2 {
 
 /* Nastavení stylu pro další nadpisy a popisky */
 h3, h4, label {
-    color: #adb5bd; /* Světle šedá barva textu */
+    color: #dce1e6; /* Světle šedá barva textu */
 }
 
 /* Nastavení stylu pro tabulku kalendáře */
@@ -100,7 +100,7 @@ h3, h4, label {
 
 /* Nastavení stylu pro horizontální čáru (hr) */
 hr {
-    border: 4px solid #0c1226;
+    border: 4px solid #1b2d63;
     opacity:0.1; /* Světle modrá čára s tloušťkou 4px */
 }
 
@@ -109,3 +109,9 @@ hr {
     color:white !important;
 	
 }
+.table td { position: relative; padding: 10px; /* Přidáme padding, aby bylo místo pro čtvereček */ }
+.event-count { position: absolute; bottom: 0px; /* Nastavíme pozici na 0px pro přesné umístění */
+    right: 0px; /* Nastavíme pozici na 0px pro přesné umístění */
+    display: inline-block; padding: 0px 0px; color: white; font-size: 12px; z-index: 10; } .no-events { display: none; }
+
+.badge.bg-success { background-color: #28a745; border-radius: 0; /* Nastaví rohy na rovné */ padding: 4px 4px; color: white; font-size: 12px; }
