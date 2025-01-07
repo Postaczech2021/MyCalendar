@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Správa štítků{% endblock %}
+
+{% block content %}
+<h2>Správa štítků</h2>
+<form method="post" action="{{ url_for('manage_badges') }}">
+    <div class="form-group">
+        <label for="badge_name">Název štítku</label>
+        <input type="text" id="badge_name" name="badge_name" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Přidat štítek</button>
+    </div>
+</form>
+
+<h3>Existující štítky</h3>
+<ul class="list-group">
+    {% for badge in badges %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{ badge.name }}
+        <div>
+            <a href="{{ url_for('edit_badge', badge_id=badge.id) }}" class="btn btn-warning btn-sm">Upravit</a>
+            <a href="{{ url_for('delete_badge', badge_id=badge.id) }}" class="btn btn-danger btn-sm">Smazat</a>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
