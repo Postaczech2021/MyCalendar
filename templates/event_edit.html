@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Upravit událost{% endblock %}
+
+{% block content %}
+<h2>Upravit událost</h2>
+<form method="post">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.name.label(class="form-control-label") }}
+        {{ form.name(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.description.label(class="form-control-label") }}
+        {{ form.description(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.category.label(class="form-control-label") }}
+        {{ form.category(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.start_date.label(class="form-control-label") }}
+        {{ form.start_date(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.end_date.label(class="form-control-label") }}
+        {{ form.end_date(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.done.label(class="form-control-label") }}
+        {{ form.done(class="form-check-input") }}
+    </div>
+    <div class="form-group">
+        {{ form.submit(class="btn btn-primary") }}
+    </div>
+</form>
+{% if date_error %}
+<p style="color: red;">{{ date_error }}</p>
+{% endif %}
+{% endblock %}
