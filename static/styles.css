@@ -1,0 +1,21 @@
+body.bg-dark {
+    background-color: #001f3f;
+    color: white;
+}
+body.bg-light {
+    background-color: #f8f9fa;
+    color: black;
+}
+.table {
+    margin-top: 20px;
+}
+.text-center {
+    text-align: center;
+}
+.text-light {
+    color: black !important;
+}
+.text-dark {
+    color: white !important;
+}
+.current_day { background-color:red; !important}
