@@ -1,0 +1,111 @@
+/* Nastavení pozadí a barvy textu pro celé tělo stránky */
+body {
+    background-color: #0c1226; /* Tmavě modré pozadí */
+    color: #f8f9fa; /* Světle šedý text */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Nastavení fontu pro text */
+}
+
+table .current_day {
+    color:white !important;
+    background-color: #f5d522 !important;
+}
+
+}
+/* Nastavení stylu pro kontejner */
+.container {
+    padding: 20px; /* Vnitřní odsazení kontejneru */
+    border-radius: 10px; /* Zaoblení rohů kontejneru */
+    background-color: transparent; /* Tmavě modré pozadí kontejneru */
+}
+
+/* Nastavení stylu pro nadpis kalendáře (měsíc) */
+h2 {
+    color: #1e90ff; /* Světle modrá barva textu */
+    font-size: 1.8rem; /* Velikost písma */
+    margin-bottom: 20px; /* Dolní odsazení nadpisu */
+}
+
+/* Nastavení stylu pro další nadpisy a popisky */
+h3, h4, label {
+    color: #adb5bd; /* Světle šedá barva textu */
+}
+
+/* Nastavení stylu pro tabulku kalendáře */
+.table {
+    margin-top: 20px; /* Horní odsazení tabulky */
+    border: 1px solid #1e90ff !important; /* Světle modrý okraj tabulky */
+    background-color: #00112b; /* Tmavě modré pozadí tabulky */
+}
+
+/* Nastavení stylu pro buňky a okraje tabulky */
+.table th, .table td {
+    color:white;
+    text-align:center;
+    border: 3px solid #0c1226; !important; /* Červené okraje buněk tabulky */
+    padding: 10px; /* Vnitřní odsazení buněk */
+    font-weight: bold; /* Tučný text */
+}
+
+/* Nastavení pozadí pro hlavičky tabulky */
+.table th {
+    background-color: #002366; /* Tmavě modré pozadí hlaviček tabulky */
+}
+
+/* Nastavení pozadí pro buňky tabulky */
+.table td {
+    background-color: #111b3d; /* Tmavě modré pozadí buněk tabulky */
+}
+
+.table td.current_day > a {
+	color:black;
+}
+/* Nastavení stylu pro odkazy v tabulce */
+.table a {
+    color: white; /* Světle modrá barva textu odkazu */
+    text-decoration: none; /* Žádné podtržení textu odkazu */
+    font-weight: bold; /* Tučný text odkazu */
+}
+
+/* Nastavení stylu pro odkazy při najetí myší */
+.table a:hover {
+    color:white; /* Světlejší modrá barva textu odkazu při najetí myší */
+    text-decoration: underline; /* Podtržení textu odkazu při najetí myší */
+}
+
+/* Nastavení stylu pro hlavní tlačítka */
+.btn-primary {
+    background-color: #1e90ff; /* Světle modré pozadí tlačítka */
+    border-color: #1e90ff; /* Světle modrý okraj tlačítka */
+}
+
+/* Nastavení stylu pro hlavní tlačítka při najetí myší */
+.btn-primary:hover {
+    background-color: #00bfff; /* Světlejší modré pozadí tlačítka při najetí myší */
+    border-color: #00bfff; /* Světlejší modrý okraj tlačítka při najetí myší */
+}
+
+/* Nastavení stylu pro ovládací prvky formuláře */
+.form-control {
+    background-color: #001836; /* Tmavě modré pozadí ovládacího prvku */
+    color: #f8f9fa; /* Světle šedá barva textu */
+    border: 1px solid #1e90ff; /* Světle modrý okraj ovládacího prvku */
+}
+
+/* Nastavení stylu pro ovládací prvky formuláře při zaostření */
+.form-control:focus {
+    background-color: #00254d; /* Tmavší modré pozadí ovládacího prvku při zaostření */
+    color: #f8f9fa; /* Světle šedá barva textu */
+    border-color: #00bfff; /* Světlejší modrý okraj ovládacího prvku při zaostření */
+}
+
+/* Nastavení stylu pro horizontální čáru (hr) */
+hr {
+    border: 4px solid #0c1226;
+    opacity:0.1; /* Světle modrá čára s tloušťkou 4px */
+}
+
+.prev,.next {
+
+    color:white !important;
+	
+}
