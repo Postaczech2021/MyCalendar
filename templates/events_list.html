@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Seznam událostí{% endblock %}
+
+{% block content %}
+<h2>Seznam událostí</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Název</th>
+            <th>Popis</th>
+            <th>Kategorie</th>
+            <th>Začátek</th>
+            <th>Konec</th>
+            <th>Dokončeno</th>
+            <th>Akce</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for event in events %}
+        <tr>
+            <td>{{ event.name }}</td>
+            <td>{{ event.description }}</td>
+            <td>{{ event.category.name }}</td>
+            <td>{{ event.start_date }}</td>
+            <td>{{ event.end_date }}</td>
+            <td>{{ event.done }}</td>
+            <td>
+                <a href="{{ url_for('edit_event', event_id=event.id) }}" class="btn btn-warning">Upravit</a>
+                <a href="{{ url_for('delete_event', event_id=event.id) }}" class="btn btn-danger">Smazat</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
