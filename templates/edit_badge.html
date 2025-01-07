@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Upravit štítek{% endblock %}
+
+{% block content %}
+<h2>Upravit štítek</h2>
+<form method="post">
+    <div class="form-group">
+        <label for="badge_name">Název štítku</label>
+        <input type="text" id="badge_name" name="badge_name" class="form-control" value="{{ badge.name }}" required>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Uložit změny</button>
+    </div>
+</form>
+{% endblock %}
