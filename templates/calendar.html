@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Kalendář{% endblock %}
+
+{% block content %}
+<h2 class="text-center"> {{ current_month }}</h2>
+
+<div class="d-flex justify-content-between mb-3">
+    <a href="{{ url_for('calendar_view', year=prev_year, month=prev_month) }}" class="btn btn-primary">
+        <i class="bi bi-chevron-left"></i>
+    </a>
+    <a href="{{ url_for('calendar_view', year=next_year, month=next_month) }}" class="btn btn-primary">
+        <i class="bi bi-chevron-right"></i>
+    </a>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            {% for day in cz_abbr_days %}
+            <th>{{ day }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for week in days_matrix %}
+        <tr>
+            {% for day in week %}
+
+<td class="text-center{% if day != 0 and day == current_day.day and month == current_day.month and year == current_day.year %} current_day bg-warning{% endif %}">
+                {% if day != 0 %}
+                <a href="{{ url_for('day_view', day=day, month=month, year=year) }}">{{ day }}</a>
+                {% endif %}
+            </td>
+            
+
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h3>Posledních 5 událostí</h3>
+{% if recent_events %}
+    <ul>
+    {% for event in recent_events %}
+            <a href="{{ url_for('edit_event', event_id=event.id) }}">{{ event.name }}</a> - 
+            <span>{{ event.start_date.strftime('%d.%m.%Y') }} - {{ event.end_date.strftime('%d.%m.%Y') }}</span>
+<p>{{ event.description }}</p>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Žádné události.</p>
+{% endif %}
+
+{% endblock %}
