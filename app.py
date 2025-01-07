@@ -19,6 +19,7 @@ def get_theme():
     """
     return request.cookies.get('theme', 'dark')
 
+
 @app.route('/calendar/<int:year>/<int:month>')
 def calendar_view(year, month):
     """
@@ -32,22 +33,40 @@ def calendar_view(year, month):
     days_matrix = calendar.get_days_matrix()
     current_day = datetime.now()
     current_day_info = calendar.get_current_day_info()
-    recent_events = Event.query.order_by(Event.start_date.desc()).limit(5).all()
+    recent_events = Event.query.order_by(Event.start_date.asc()).limit(5).all()
+
+    # Použijeme aktualizovaný dotaz s 'between'
+    start_date = datetime(year, month, 1)
+    end_date = datetime(year, month, calendar.get_number_of_days_in_month())
+    events = Event.query.filter(Event.start_date.between(start_date, end_date)).all()
+    print(f"Události od {start_date} do {end_date}: {events}")
+
+    # Přidání počtu událostí pro každý den
+    events_by_day = {}
+    for event in events:
+        day = event.start_date.day
+        if day in events_by_day:
+            events_by_day[day] += 1
+        else:
+            events_by_day[day] = 1
+
+    print(f"Počet událostí pro každý den: {events_by_day}")
 
     theme = get_theme()
 
-    return render_template('calendar.html', 
-                           year=year, 
-                           month=month, 
+    return render_template('calendar.html',
+                           year=year,
+                           month=month,
                            recent_events=recent_events,
                            current_day=current_day,
                            prev_year=prev_year,
                            prev_month=prev_month,
                            next_year=next_year,
                            next_month=next_month,
-                           current_month=current_month, 
-                           cz_abbr_days=cz_abbr_days, 
+                           current_month=current_month,
+                           cz_abbr_days=cz_abbr_days,
                            days_matrix=days_matrix,
+                           events_by_day=events_by_day,
                            theme=theme,
                            cdi=current_day_info)
 

@@ -1,6 +1,7 @@
 import calendar
 from datetime import datetime, timedelta
 
+
 class Calendar:
     cz_months = [
         "Leden", "Únor", "Březen", "Duben", "Květen", "Červen",
@@ -8,23 +9,8 @@ class Calendar:
     ]
 
     cz_days = [
-        "Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek", "Sobota","Neděle"
+        "Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek", "Sobota", "Neděle"
     ]
-    
-    cz_holidays = {
-        "Nový rok": "01-01",
-        "Velikonoční pondělí": "datum závisí na roku",
-        "Svátek práce": "05-01",
-        "Den vítězství": "05-08",
-        "Den slovanských věrozvěstů Cyrila a Metoděje": "07-05",
-        "Den upálení mistra Jana Husa": "07-06",
-        "Den české státnosti": "09-28",
-        "Den vzniku samostatného československého státu": "10-28",
-        "Den boje za svobodu a demokracii": "11-17",
-        "Štědrý den": "12-24",
-        "1. svátek vánoční": "12-25",
-        "2. svátek vánoční": "12-26"
-    }
 
     def __init__(self, year, month, firstweekday=calendar.MONDAY):
         self.year = year
@@ -66,6 +52,10 @@ class Calendar:
 
     def get_current_day_info(self):
         """Vrátí informace o aktuálním dni včetně dne v týdnu v češtině."""
-        current_date = datetime.now()  # Získání aktuálního data a času
-        current_day_name = self.cz_days[current_date.weekday()]  # Přiřazení českého názvu dne
-        return f"{current_day_name}, {current_date.day}.{current_date.month}.{current_date.year}"  # Výpis dne a datumu ve formátu "název dne, d.m.Y"
+        current_date = datetime.now()
+        current_day_name = self.cz_days[current_date.weekday()]
+        return f"{current_day_name}, {current_date.day}.{current_date.month}.{current_date.year}"
+
+    def get_number_of_days_in_month(self):
+        """Vrátí počet dnů v měsíci."""
+        return calendar.monthrange(self.year, self.month)[1]
