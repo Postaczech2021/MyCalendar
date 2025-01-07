@@ -7,11 +7,21 @@
 
 {% if events %}
     {% for event in events %}
-    <span><i class="bi bi-pass-fill"></i></span>
-           <a href="{{ url_for('edit_event', event_id=event.id) }}">{{ event.name }}</a>
-            <p>{{ event.description }}</p>
+        <hr>
+          <h5> <i class="bi bi-pass-fill"></i> Událost: ,,{{ event.name }}" <a href="{{ url_for('edit_event', event_id=event.id) }}">edit</a></h5>
+        <hr style="border: 1px solid #ffffff;">
+            <h6>Popis události: {{ event.description }}</h6>
+          <hr style="border: 1px solid #ffffff;">
+        {% if event.done %}
+    <p><i class="bi bi-check-circle-fill text-success"></i> Událost již úspěšně proběhla</p>
+
+{% else %}
+    <p><i class="bi bi-x-circle-fill text-danger"></i> Čeká na vyřízení</p>
+{% endif %}
+          <hr style="border: 1px solid #ffffff;">
     {% endfor %}
 {% else %}
     <p>Žádné události pro tento den.</p>
 {% endif %}
+    <a href="{{ url_for('calendar_view', year=current_day.year, month=current_day.month) }}" class="btn btn-primary"> Zpět na kalendář </a>
 {% endblock %}

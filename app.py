@@ -28,18 +28,19 @@ def calendar_view(year, month):
     calendar = Calendar(year, month)
     prev_year, prev_month = calendar.get_prev_month()
     next_year, next_month = calendar.get_next_month()
-    current_month = calendar.get_current_month_name()
+
     cz_abbr_days = calendar.get_cz_abbr_days()
     days_matrix = calendar.get_days_matrix()
     current_day = datetime.now()
+    current_month = calendar.get_current_month_name()
     current_day_info = calendar.get_current_day_info()
     recent_events = Event.query.order_by(Event.start_date.asc()).limit(5).all()
 
-    # Použijeme aktualizovaný dotaz s 'between'
+    # Použijeme aktualizovaný dotaz s filtrem pro `done`
     start_date = datetime(year, month, 1)
     end_date = datetime(year, month, calendar.get_number_of_days_in_month())
-    events = Event.query.filter(Event.start_date.between(start_date, end_date)).all()
-    print(f"Události od {start_date} do {end_date}: {events}")
+    events = Event.query.filter(Event.start_date.between(start_date, end_date), Event.done == False).all()
+    print(f"Události od {start_date} do {end_date} (které ještě neproběhly): {events}")
 
     # Přidání počtu událostí pro každý den
     events_by_day = {}
@@ -50,7 +51,7 @@ def calendar_view(year, month):
         else:
             events_by_day[day] = 1
 
-    print(f"Počet událostí pro každý den: {events_by_day}")
+    print(f"Počet událostí pro každý den (bez proběhlých událostí): {events_by_day}")
 
     theme = get_theme()
 
@@ -59,11 +60,11 @@ def calendar_view(year, month):
                            month=month,
                            recent_events=recent_events,
                            current_day=current_day,
+                           current_month=current_month,
                            prev_year=prev_year,
                            prev_month=prev_month,
                            next_year=next_year,
                            next_month=next_month,
-                           current_month=current_month,
                            cz_abbr_days=cz_abbr_days,
                            days_matrix=days_matrix,
                            events_by_day=events_by_day,
@@ -76,6 +77,10 @@ def day_view(day, month, year):
     """
     Zobrazí detailní informace o daném dni včetně událostí
     """
+    calendar = Calendar(year, month)
+    current_day = datetime.now()
+    current_month = calendar.get_current_month_name()
+
     # Vytvoření datumu ve formátu "d.m.Y"
     selected_date_str = f"{day}.{month}.{year}"
     selected_date = datetime.strptime(selected_date_str, '%d.%m.%Y').date()
@@ -93,7 +98,7 @@ def day_view(day, month, year):
 
     theme = get_theme()
 
-    return render_template('day.html', day=day, month=month, year=year, day_name=day_name, events=events, theme=theme)
+    return render_template('day.html', current_day=current_day, current_month=current_month, day=day, month=month, year=year, day_name=day_name, events=events, theme=theme)
 @app.route('/change/theme')
 def change_theme():
     """
