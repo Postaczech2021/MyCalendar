@@ -1,6 +1,4 @@
-import calendar
-from datetime import datetime, timedelta
-
+from imports import *
 
 class Calendar:
     cz_months = [
@@ -46,16 +44,16 @@ class Calendar:
         """Vrátí název aktuálního měsíce a rok."""
         return f"{self.cz_months[self.month - 1]} {self.year}"
 
-    def get_cz_holidays(self):
-        """Vrátí slovník obsahující české svátky a jejich data."""
-        return self.cz_holidays
-
     def get_current_day_info(self):
         """Vrátí informace o aktuálním dni včetně dne v týdnu v češtině."""
         current_date = datetime.now()
         current_day_name = self.cz_days[current_date.weekday()]
         return f"{current_day_name}, {current_date.day}.{current_date.month}.{current_date.year}"
 
-    def get_number_of_days_in_month(self):
+    def get_days_in_month(self):
         """Vrátí počet dnů v měsíci."""
         return calendar.monthrange(self.year, self.month)[1]
+
+    @staticmethod
+    def get_day_name(date):
+        return Calendar.cz_days[date.weekday()]

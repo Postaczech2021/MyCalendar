@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Seznam Kategorií{% endblock %}
+
+{% block content %}
+<h2>Seznam Kategorií</h2>
+<a href="{{ url_for('workshifts_category_add') }}" class="btn btn-primary">Přidat Kategorii</a>
+<table class="table table-bordered mt-3">
+    <thead>
+        <tr>
+            <th>Název</th>
+            <th>Akce</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for category in categories %}
+        <tr>
+            <td>{{ category.name }}</td>
+            <td>
+                <a href="{{ url_for('workshifts_category_edit', category_id=category.id) }}" class="btn btn-secondary"><i class="bi bi-pencil"></i> Edit

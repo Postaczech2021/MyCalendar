@@ -3,12 +3,13 @@
 {% block title %}Kalendář{% endblock %}
 
 {% block content %}
-<h2 class="text-center"> {{ current_month }}</h2>
 
-<div class="d-flex justify-content-between mb-3">
+<div class="d-flex justify-content-between">
     <a href="{{ url_for('calendar_view', year=prev_year, month=prev_month) }}" class="btn btn-primary">
         <i class="bi bi-chevron-left"></i>
     </a>
+    <h3 class="text-center"> {{ current_month }}</h2>
+    
     <a href="{{ url_for('calendar_view', year=next_year, month=next_month) }}" class="btn btn-primary">
         <i class="bi bi-chevron-right"></i>
     </a>
@@ -26,16 +27,16 @@
         {% for week in days_matrix %}
         <tr>
             {% for day in week %}
-
-<td class="text-center{% if day != 0 and day == current_day.day and month == current_day.month and year == current_day.year %} current_day bg-warning{% endif %}">
-                {% if day != 0 %}
-                <a href="{{ url_for('day_view', day=day, month=month, year=year) }}">{{ day }}</a>
-                {% endif %}
-                {% if day in events_by_day %} <div class="event-count"> <span class="badge bg-success">{{ events_by_day[day] }}</span> </div> {% endif %}
-
-            </td>
-            
-
+                <td class="text-center{% if day != 0 and day == current_day.day and month == current_day.month and year == current_day.year %} current_day bg-warning{% endif %}">
+                    {% if day != 0 %}
+                    <a href="{{ url_for('day_view', day=day, month=month, year=year) }}">{{ day }}</a>
+                    {% endif %}
+                    {% if day in events_by_day %}
+                    <div class="event-count">
+                        <span class="badge bg-success">{{ events_by_day[day] }}</span>
+                    </div>
+                    {% endif %}
+                </td>
             {% endfor %}
         </tr>
         {% endfor %}
@@ -43,30 +44,48 @@
 </table>
 
 <h3>Poslední události</h3>
-    <hr>
+<hr>
 {% if recent_events %}
-
     {% for event in recent_events %}
-            <h5><a href="{{ url_for('edit_event', event_id=event.id) }}">{{ event.name }}</a></h5>
-
-            {% if event.start_date == event.end_date %}
-                <h6>
-                <i class="bi bi-calendar-check"></i>
-    <span>{{ event.start_date.strftime('%d.%m.%Y') }}</span>
+        <h5>{% if event.category and event.category.name == "Doctor" %}
+        <i style="margin-left:-2px;" class="bi bi-building"></i>
 {% else %}
-    <span>{{ event.start_date.strftime('%d.%m.%Y') }} - {{ event.end_date.strftime('%d.%m.%Y') }}</span>
-                </h6>
-{% endif %}
-
-<p class="mt-1 mb-3">{{ event.description }}</p>
-        <p>{% if event.done %}
-    <p><i class="bi bi-check-circle-fill text-success"></i></p>
-{% else %}
-    <p><i class="bi bi-x-circle-fill text-danger"></i></p>
-{% endif %}
-</p>
+<i class="bi bi-calendar-fill"></i>
+         {% endif %}
+            <a href="{{ url_for('event_view', event_id=event.id) }}">
+                {{ event.name }}
+            </a>
+        </h5>
+        {% if event.start_date.date() == event.end_date.date() %}
+        <h6>
+            <i class="bi bi-calendar-check"></i>
+            <span>{{ event.start_date.strftime('%d.%m.%Y') }}</span>
+            {% if event.start_date.strftime('%H:%M:%S') == event.end_date.strftime('%H:%M:%S') %}
+                <span>({{ event.start_date.strftime('%H:%M:%S') }})</span>
+            {% else %}
+                <span>({{ event.start_date.strftime('%H:%M:%S') }} - {{ event.end_date.strftime('%H:%M:%S') }})</span>
+            {% endif %}
+        </h6>
+        {% else %}
+        <h6>
+            <i class="bi bi-calendar-check"></i>
+            <span>{{ event.start_date.strftime('%d.%m.%Y') }} - {{ event.end_date.strftime('%d.%m.%Y') }}</span>
+            {% if event.start_date.strftime('%H:%M:%S') == event.end_date.strftime('%H:%M:%S') %}
+                <span>({{ event.start_date.strftime('%H:%M:%S') }})</span>
+            {% else %}
+                <span>({{ event.start_date.strftime('%H:%M:%S') }} - {{ event.end_date.strftime('%H:%M:%S') }})</span>
+            {% endif %}
+        </h6>
+        {% endif %}
+        <p class="mt-1 mb-1">{{ event.description }}</p>
+        <p>
+            {% if event.done %}
+            <i class="bi bi-check-circle-fill text-success"> Uspesne dokonceno</i>
+            {% else %}
+            <i class="bi bi-x-circle-fill text-danger"> Cekajici na vyrizeni</i>
+            {% endif %}
+        </p>
     {% endfor %}
-
 {% else %}
     <p>Žádné události.</p>
 {% endif %}

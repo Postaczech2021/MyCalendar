@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Seznam Směn{% endblock %}
+
+{% block content %}
+<h2>Seznam Směn</h2>
+<a href="{{ url_for('workshift_add') }}" class="btn btn-primary">Přidat Směnu</a>
+<table class="table table-bordered mt-3">
+    <thead>
+        <tr>
+            <th>Název</th>
+            <th>Začátek</th>
+            <th>Konec</th>
+            <th>Kategorie</th>
+            <th>Akce</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for workshift in workshifts %}
+        <tr>
+            <td>{{ workshift.name }}</td>
+            <td>{{ workshift.time_start }}</td>
+            <td>{{ workshift.time_end }}</td>
+            <td>{{ workshift.category.name }}</td>
+            <td>
+                <a href="{{ url_for('workshift_edit', workshift_id=workshift.id) }}" class="btn btn-secondary"><i class="bi bi-pencil"></i> Editovat</a>
+                <form action="{{ url_for('workshift_delete', workshift_id=workshift.id) }}" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Smazat</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

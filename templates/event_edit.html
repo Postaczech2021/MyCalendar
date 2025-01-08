@@ -1,40 +1,46 @@
 {% extends "base.html" %}
 
-{% block title %}Upravit událost{% endblock %}
+{% block title %}Editovat Událost{% endblock %}
 
 {% block content %}
-<h2>Upravit událost</h2>
-<form method="post">
-    {{ form.hidden_tag() }}
-    <div class="form-group">
-        {{ form.name.label(class="form-control-label") }}
-        {{ form.name(class="form-control") }}
-    </div>
-    <div class="form-group">
-        {{ form.description.label(class="form-control-label") }}
-        {{ form.description(class="form-control") }}
-    </div>
-    <div class="form-group">
-        {{ form.category.label(class="form-control-label") }}
-        {{ form.category(class="form-control") }}
-    </div>
-    <div class="form-group">
-        {{ form.start_date.label(class="form-control-label") }}
-        {{ form.start_date(class="form-control") }}
-    </div>
-    <div class="form-group">
-        {{ form.end_date.label(class="form-control-label") }}
-        {{ form.end_date(class="form-control") }}
-    </div>
-    <div class="form-group">
-        {{ form.done.label(class="form-control-label") }}
-        {{ form.done(class="form-check-input") }}
-    </div>
-    <div class="form-group">
-        {{ form.submit(class="btn btn-primary") }}
-    </div>
-</form>
-{% if date_error %}
-<p style="color: red;">{{ date_error }}</p>
-{% endif %}
+    <h3>Editovat Událost</h3>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="alert alert-{{ messages[0][0] }}">
+          {{ messages[0][1] }}
+        </div>
+      {% endif %}
+    {% endwith %}
+    <form method="post">
+        <div class="form-group">
+            <label for="name">Název:</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{ event.name }}" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Popis:</label>
+            <textarea class="form-control" id="description" name="description" required>{{ event.description }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="start_date">Začátek:</label>
+            <input type="datetime-local" class="form-control" id="start_date" name="start_date" value="{{ event.start_date.strftime('%Y-%m-%dT%H:%M') }}" required>
+        </div>
+        <div class="form-group">
+            <label for="end_date">Konec:</label>
+            <input type="datetime-local" class="form-control" id="end_date" name="end_date" value="{{ event.end_date.strftime('%Y-%m-%dT%H:%M') }}" required>
+        </div>
+        <div class="form-group">
+            <label for="category_id">Kategorie:</label>
+            <select class="form-control" id="category_id" name="category_id">
+                {% for category in categories %}
+                    <option value="{{ category.id }}" {% if category.id == event.events_category_id %}selected{% endif %}>{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="done" name="done" {% if event.done %}checked{% endif %}>
+            <label class="form-check-label" for="done">Dokončeno</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Uložit Změny</button>
+    </form>
+    <a href="{{ url_for('event_list') }}" class="btn btn-secondary">Zpět na seznam událostí</a>
 {% endblock %}

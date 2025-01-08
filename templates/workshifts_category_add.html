@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Přidat Kategorii Směn{% endblock %}
+
+{% block content %}
+<h2>Přidat Kategorii Směn</h2>
+<form method="post">
+    <div class="form-group">
+        <label for="name">Název:</label>
+        <input type="text" class="form-control" id="name" name="name" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Přidat</button>
+</form>
+<a href="{{ url_for('workshifts_categories_list') }}" class="btn btn-secondary">Zpět na seznam kategorií</a>
+{% endblock %}

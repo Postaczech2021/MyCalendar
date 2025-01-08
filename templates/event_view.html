@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Detail Události{% endblock %}
+
+{% block content %}
+    <h3>{{ event.name }}</h3>
+    <hr>
+    <p>{{ event.description }}</p>
+    <p>Začátek: {{ event.start_date.strftime('%d.%m.%Y %H:%M') }}</p>
+    <p>Konec: {{ event.end_date.strftime('%d.%m.%Y %H:%M') }}</p>
+    
+    {% if event.done %}
+        <p><i class="bi bi-check-circle-fill text-success"></i> Událost již úspěšně proběhla</p>
+    {% else %}
+        <p><i class="bi bi-x-circle-fill text-danger"></i> Čeká na vyřízení</p>
+    {% endif %}
+    
+    <a href="{{ url_for('event_edit', event_id=event.id) }}" class="btn btn-secondary">Edit</a>
+    <form action="{{ url_for('event_delete', event_id=event.id) }}" method="POST" style="display:inline;">
+        <button type="submit" class="btn btn-danger">Smazat</button>
+    </form>
+{% endblock %}

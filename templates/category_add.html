@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Přidat Kategorii{% endblock %}
+
+{% block content %}
+    <h3>Přidat Novou Kategorii</h3>
+    <form method="post">
+        <div class="form-group">
+            <label for="name">Název Kategorie:</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Přidat</button>
+    </form>
+    <a href="{{ url_for('categories_list') }}" class="btn btn-secondary">Zpět na seznam kategorií</a>
+{% endblock %}

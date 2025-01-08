@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Editovat Směnu{% endblock %}
+
+{% block content %}
+<h2>Editovat Směnu</h2>
+<form method="post">
+    <div class="form-group">
+        <label for="name">Název:</label>
+        <input type="text" class="form-control" id="name" name="name" value="{{ workshift.name }}" required>
+    </div>
+    <div class="form-group">
+        <label for="start_date">Datum Začátku:</label>
+        <input type="date" class="form-control" id="start_date" name="start_date" value="{{ workshift.start_date }}" required>
+    </div>
+    <div class="form-group">
+        <label for="time_start">Začátek:</label>
+        <input type="time" class="form-control" id="time_start" name="time_start" value="{{ workshift.time_start }}" required>
+    </div>
+    <div class="form-group">
+        <label for="time_end">Konec:</label>
+        <input type="time" class="form-control" id="time_end" name="time_end" value="{{ workshift.time_end }}" required>
+    </div>
+    <div class="form-group">
+        <label for="category_id">Kategorie:</label>
+        <select class="form-control" id="category_id" name="category_id">
+            {% for category in categories %}
+                <option value="{{ category.id }}" {% if category.id == workshift.category_id %}selected{% endif %}>{{ category.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Uložit Změny</button>
+</form>
+<a href="{{ url_for('workshifts_list') }}" class="btn btn-secondary">Zpět na seznam směn</a>
+{% endblock %}
